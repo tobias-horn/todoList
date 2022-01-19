@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List </title>
+</head>
+<body>
+    
+
+
+    <form data-task-input>
+        <label for="taskName">Task Name</label><br>
+        <input class="text-input" type="text" id="taskName" name="name"><br>
+        <br><br>
+        <label for="taskPriority">Priority</label><br>
+        <input class="text-input" type="number" id="taskPriority" name="priority"><br>
+        <br>
+        <input id="addTask" type="submit" value="Add to List">
+    </form>
+<br> <br>
+
+    <div id="taskContainer"></div>
+
+
+<script src="./main.js"></script>
+</body>
+</html>
