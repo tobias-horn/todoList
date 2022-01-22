@@ -1,19 +1,37 @@
-import { eventListener } from "./UI"
+import { UImethods } from "./UI"
+
+
+
 
 export const TaskMethods  = (function () {
     
+  function createAllTasks() {
+    let allTasksTemp = {
+      default: [],
+    }
+  
+    window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
+  }
 
-    let allTasks = {
-        default: [],
+  function checkForLocalStorage() {
 
-      
-      }
-      
+    let check = window.localStorage.getItem("allTasks")
+    
+    if (window.localStorage.getItem("allTasks") === null) {
+    
+      createAllTasks()
+    }
+    
+    }
+    
+    checkForLocalStorage()
+
       class Task {
-          constructor(name, priority, project){
+          constructor(name, priority, project, dueDate){
               this.name = name
               this.priority = priority
               this.project = project
+              this.dueDate = dueDate
           }
       }
       
@@ -24,14 +42,22 @@ export const TaskMethods  = (function () {
           if (taskProject === undefined){
               taskProject = "default"}
           let task = new Task (taskName, taskPriority, taskProject)
-          allTasks[taskProject].push(task)
-          console.table(allTasks)
+        
+        let allTasksTemp = window.localStorage.getItem("allTasks")
+        allTasksTemp = JSON.parse(allTasksTemp)
+
+        window.localStorage.removeItem("allTasks")
+        allTasksTemp[taskProject].push(task)
+        window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
       }
       
       function init (){
-      eventListener.initEventlisteners(newTask)
+      UImethods.initEventlisteners(newTask)
       }
 
-return {init, allTasks}
+
+
+
+return {init, createAllTasks}
 
 }) ()

@@ -1,11 +1,10 @@
 import {TaskMethods} from "./modules/task.js"
-import { eventListener } from "./modules/UI.js"
+import { UImethods } from "./modules/UI.js"
+
 
 TaskMethods.init()
-
-
-
-
+UImethods.renderTasks()
+console.log("test")
 
 import './styles.css';
 

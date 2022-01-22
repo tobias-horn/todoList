@@ -1,34 +1,47 @@
 import { TaskMethods } from "./task.js"
 
-export const eventListener  = (function () {
+export const UImethods  = (function () {
     
     function initEventlisteners (newTask) {
 
         const addTaskButton = document.getElementById("addTask")
+
         addTaskButton.addEventListener("click", (e) => {
             e.preventDefault()
             const taskName = document.getElementById("taskName").value
             const taskPriority = document.getElementById("taskPriority").value;
 
             newTask(taskName, taskPriority)
-            eventListener.renderTasks()
+            renderTasks()
         })
+
+        const deleteAll = document.getElementById("deleteAll")
+        deleteAll.addEventListener("click", ()=> {
+            window.localStorage.removeItem("allTasks")
+            renderTasks()
+            TaskMethods.createAllTasks()
+        })
+
     }   
 
 
     function renderTasks () {
-        console.log(TaskMethods.allTasks)
-        console.log("test")
 
-        for (const project in TaskMethods.allTasks) {
-
-            console.log("render task: " + project)
-            console.log(TaskMethods.allTasks[project])
-
+        if (window.localStorage.getItem("allTasks") === null){
+            const taskContainer = document.getElementById("taskContainer")
+            taskContainer.innerHTML = ""
+            console.log(" all null")
+            return
+        } else {
+        
+        let allTasksTemp = window.localStorage.getItem("allTasks")
+        allTasksTemp = JSON.parse(allTasksTemp)
+        console.log(allTasksTemp)
+        for (const project in allTasksTemp) {
 
             const taskContainer = document.getElementById("taskContainer")
             taskContainer.innerHTML = ""
-            TaskMethods.allTasks[project].forEach(task => {
+            allTasksTemp[project].forEach(task => {
                 const taskName = task.name
                 
                 console.log(taskName)
@@ -39,12 +52,9 @@ export const eventListener  = (function () {
 
                 taskContainer.innerHTML += content
             });
-            
-
-            
-            // console.log("task: " + TaskMethods.allTasks.project);
 
         }
+    }
     }
 
 return {initEventlisteners, renderTasks}
