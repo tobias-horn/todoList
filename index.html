@@ -9,6 +9,8 @@
 <body>
     <header>
         <h1>TODO List</h1>
+        <button id="seedData">Seed Data</button>
+        <button id="deleteAll">Delete all tasks</button>
     </header>
     <div class="container">
         <div class="projectContainer">
@@ -30,7 +32,12 @@
 
         </div>
         <div class="taskContainer">
-            <form data-task-input>
+        
+            <div id="allTaskContainer"></div>
+            <br> <br> <br>
+
+            <button id="createNewTask">Add Task</button>
+            <form data-task-input id="newTaskForm">
                 <label for="taskName">Task Name</label><br>
                 <input class="text-input" type="text" id="taskName" name="name"><br>
                 <br><br>
@@ -38,11 +45,12 @@
                 <input class="text-input" type="number" id="taskPriority" name="priority"><br>
                 <br>
                 <input id="addTask" type="submit" value="Add to List">
+                <button id="cancelTaskInput">Cancel</button>
             </form>
-            <br> <br>
-            <div id="allTaskContainer"></div>
-            <br> <br> <br>
-            <button id="deleteAll">Delete all tasks</button>
+            
+            <br><br>
+            
+            
         </div>
     </div>
     
