@@ -13,7 +13,8 @@ export const UImethods  = (function () {
             const taskPriority = document.getElementById("taskPriority").value;
 
             newTask(taskName, taskPriority)
-            renderTasks()
+            renderTasks(localStorage.getItem("currentProject"))
+
         })
 
         const deleteAll = document.getElementById("deleteAll")
@@ -27,33 +28,35 @@ export const UImethods  = (function () {
     }   
 
 
-    function renderTasks (project) {
-        ProjectMethods.renderProjects()
+    function renderTasks (project, allTasksTrue) {
+      
 
+
+        // if no tasks saved, return
         if (window.localStorage.getItem("allTasks") === null){
             const taskContainer = document.getElementById("allTaskContainer")
             taskContainer.innerHTML = ""
-            console.log(" all null")
             return
         } else {
         
+        // pulling tasks from local storage
         let allTasksTemp = window.localStorage.getItem("allTasks")
         allTasksTemp = JSON.parse(allTasksTemp)
 
+        // removing existing tasks from UI
+        
+        if (!allTasksTrue) {
+          console.log("project is not default " + project)
         const allTaskContainer = document.getElementById("allTaskContainer")
         allTaskContainer.innerHTML = ""
-
-        for (const project in allTasksTemp) {
-            const projectContainer = document.createElement("div")
-            projectContainer.dataset.project = project
-            allTaskContainer.appendChild(projectContainer)
-            
+        }
             
             let counter = 0
+            console.log("all task temp: " + project)
             allTasksTemp[project].forEach(task => {
-                const taskContainer = document.createElement("div")
-            taskContainer.classList.add("taskContainer")
-            projectContainer.appendChild(taskContainer)
+              const taskContainer = document.createElement("div")
+              taskContainer.classList.add("taskContainer")
+              allTaskContainer.appendChild(taskContainer)
 
                 const taskName = task.name
                 const taskPriority = task.priority
@@ -63,22 +66,23 @@ export const UImethods  = (function () {
 
                 taskContainer.innerHTML += content
                 taskContainer.dataset.index = counter
+                taskContainer.dataset.project = project
                 counter++
                 
             });            
 
-        } 
+        
         
     
         
         }
-        deleteEventlistener()
+        deleteButtonEventListener()
         }
 
         
 
 
-        function deleteEventlistener (){
+        function deleteButtonEventListener (){
             const taskDeleteButton = document.querySelectorAll(".taskDeleteButton")
         taskDeleteButton.forEach(button => {
             button.addEventListener("click",(button) => {
@@ -86,12 +90,14 @@ export const UImethods  = (function () {
                 let allTasksTemp = window.localStorage.getItem("allTasks")
                 allTasksTemp = JSON.parse(allTasksTemp)
                 let index = button.currentTarget.parentNode.getAttribute("data-index")
-                let project = button.currentTarget.parentNode.parentNode.getAttribute("data-project")
+                let project = localStorage.getItem("currentProject")
+                console.log("project array " + button.currentTarget.parentNode.getAttribute("data-project"))
                 let array = allTasksTemp[project]
+                console.log("array: " + array)
                 array.splice(index, 1)
                 allTasksTemp[project] = array
                 window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
-                renderTasks()
+                renderTasks(localStorage.getItem("currentProject"))
         
             })
         })
@@ -138,7 +144,27 @@ export const UImethods  = (function () {
           }
 
 
+          function toggleTaskForm (){
 
+            const newTaskForm = document.getElementById("newTaskForm")
+
+              const formToggleButton = document.getElementById("createNewTask")
+              formToggleButton.addEventListener("click", () =>{
+                newTaskForm.style.display = "block"
+                formToggleButton.style.display = "none"
+
+                
+              })
+
+              const cancelTaskButton = document.getElementById("cancelTaskInput")
+              cancelTaskButton.addEventListener("click", (e)=> {
+                  e.preventDefault()
+              newTaskForm.style.display = "none"
+              formToggleButton.style.display = "block"
+            })
+            }
+              
+          toggleTaskForm()
          
 
 

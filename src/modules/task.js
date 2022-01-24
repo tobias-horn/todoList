@@ -36,9 +36,9 @@ export const TaskMethods  = (function () {
       }
       
       
-      function newTask(taskName, taskPriority, project) {
-      
-          let taskProject = project
+      function newTask(taskName, taskPriority) {
+          
+          let taskProject = localStorage.getItem('currentProject')
           if (taskProject === undefined){
               taskProject = "default"}
           let task = new Task (taskName, taskPriority, taskProject)
@@ -49,10 +49,14 @@ export const TaskMethods  = (function () {
         window.localStorage.removeItem("allTasks")
         allTasksTemp[taskProject].push(task)
         window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
+        
       }
       
       function init (){
+      localStorage.setItem("currentProject", "default")
       UImethods.initEventlisteners(newTask)
+      UImethods.renderTasks("default")
+      
       }
 
 

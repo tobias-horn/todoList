@@ -1,3 +1,8 @@
+* {
+
+}
+
+
 body {
     background-color: #b3e1e8;
     font-family: sans-serif;
@@ -69,3 +74,14 @@ header {
     color: darkcyan;
 }
 
+#newTaskForm {
+    display: none;
+}
+
+.projectActive {
+    border: 2px solid white;
+}
+
+.taskContainer {
+  margin-top: 40px;
+}
