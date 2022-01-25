@@ -56,8 +56,9 @@ header {
     border-radius: 10px;
     margin: 10px 0;
     width: 50%;
-    display: inline-flex;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
 
 }
 
@@ -70,6 +71,8 @@ header {
     width: 25px;
 }
 
+
+
 .projectDeleteButton:hover {
     color: darkcyan;
 }
@@ -78,10 +81,68 @@ header {
     display: none;
 }
 
+#lowPriority {
+  height: 15px;
+  width: 15px;
+}
+
+#lowPriority:checked {
+  background-color: green;
+}
+
+
+
 .projectActive {
     border: 2px solid white;
 }
 
 .taskContainer {
   margin-top: 40px;
+}
+
+.checkbox-round {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.checkbox-round:hover {
+  background-color: gray;
+
+}
+
+
+
+.taskPrioLow {
+  border-left: 5px solid green;
+}
+
+.taskPrioMedium {
+  border-left: 5px solid orange;
+}
+
+.taskPrioHigh {
+  border-left: 5px solid red;
+}
+
+.taskContainer {
+  padding-left: 10px;
+  padding-right: 15px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.taskContainer p {
+  margin-left: 15px;
 }

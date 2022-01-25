@@ -31,19 +31,29 @@
 
 
         </div>
-        <div class="taskContainer">
+        <div class="taskContainerWrapper">
         
             <div id="allTaskContainer"></div>
             <br> <br> <br>
 
             <button id="createNewTask">Add Task</button>
             <form data-task-input id="newTaskForm">
-                <label for="taskName">Task Name</label><br>
-                <input class="text-input" type="text" id="taskName" name="name"><br>
-                <br><br>
-                <label for="taskPriority">Priority</label><br>
-                <input class="text-input" type="number" id="taskPriority" name="priority"><br>
+
+                <input class="text-input" minlength="2" maxlength="20" type="text" id="taskName" placeholder="New Task" required><br>
                 <br>
+
+                <div class="priorityContainer">
+
+                    <input type="radio" checked id="lowPriority" name="priority" value="1">
+                    <label for="lowPriority">Low Priority</label>
+                    <br>
+                    <input type="radio" id="mediumPriority" name="priority" value="2">
+                    <label for="mediumPriority">Medium Priority</label>
+                    <br>
+                    <input type="radio" id="highPriority" name="priority" value="3">
+                    <label for="highPriority">High Priority</label>
+                </div>
+
                 <input id="addTask" type="submit" value="Add to List">
                 <button id="cancelTaskInput">Cancel</button>
             </form>

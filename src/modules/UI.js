@@ -10,10 +10,13 @@ export const UImethods  = (function () {
         addTaskButton.addEventListener("click", (e) => {
             e.preventDefault()
             const taskName = document.getElementById("taskName").value
-            const taskPriority = document.getElementById("taskPriority").value;
+            const taskPriority = document.querySelector('input[name="priority"]:checked').value
+            
+            console.log("task priority: "+ taskPriority)
 
             newTask(taskName, taskPriority)
             renderTasks(localStorage.getItem("currentProject"))
+            document.querySelector("[data-task-input]").reset()
 
         })
 
@@ -28,69 +31,101 @@ export const UImethods  = (function () {
     }   
 
 
-    function renderTasks (project, allTasksTrue) {
-      
+function renderTasks (project) {
+
+  // if no tasks saved, return
+  if (window.localStorage.getItem("allTasks") === null){
+    const taskContainer = document.getElementById("allTaskContainer")
+    taskContainer.innerHTML = ""
+    return
+}
+
+// pulling tasks from local storage
+let allTasksTemp = window.localStorage.getItem("allTasks")
+allTasksTemp = JSON.parse(allTasksTemp)
+
+console.table(allTasksTemp)
+
+// clearing field
+const allTaskContainer = document.getElementById("allTaskContainer")
+allTaskContainer.innerHTML = ""
 
 
-        // if no tasks saved, return
-        if (window.localStorage.getItem("allTasks") === null){
-            const taskContainer = document.getElementById("allTaskContainer")
-            taskContainer.innerHTML = ""
-            return
-        } else {
-        
-        // pulling tasks from local storage
-        let allTasksTemp = window.localStorage.getItem("allTasks")
-        allTasksTemp = JSON.parse(allTasksTemp)
+if (project == "default"){
 
-        // removing existing tasks from UI
-        
-        if (!allTasksTrue) {
-          console.log("project is not default " + project)
-        const allTaskContainer = document.getElementById("allTaskContainer")
-        allTaskContainer.innerHTML = ""
-        }
-            
-            let counter = 0
-            console.log("all task temp: " + project)
-            allTasksTemp[project].forEach(task => {
-              const taskContainer = document.createElement("div")
-              taskContainer.classList.add("taskContainer")
-              allTaskContainer.appendChild(taskContainer)
+  const keys = Object.keys(allTasksTemp)
+  keys.forEach(key => {
+    const projectName = document.createElement("div")
+          projectName.classList.add("taskContainer")
+          if (key == "default"){
+            projectName.innerHTML = "Inbox"
+          } else {
+          projectName.innerHTML = key
+          }
+          allTaskContainer.appendChild(projectName)
+    _renderTasksRecursive(key)
 
-                const taskName = task.name
-                const taskPriority = task.priority
+  })
 
-                let content = `Task Name: ${taskName} <br> Task Priority: ${taskPriority}
-                <br><br><button class="taskDeleteButton"><i class="fas fa-trash"></i></button><br> <br>`  
+
+  } else {
+    _renderTasksRecursive(project)
+  }
+
+  deleteButtonEventListener()
+
+      function _renderTasksRecursive(project){
+        let counter = 0
+        console.log("project in _renderTasks " + project)
+        allTasksTemp[project].forEach(task => {
+          const taskContainer = document.createElement("div")
+          taskContainer.classList.add("taskContainer")
+          allTaskContainer.appendChild(taskContainer)
+
+            const taskName = task.name
+            const taskPriority = task.priority
+
+            let content = `<p>${taskName}</p>
+            <input type="checkbox" class="checkbox-round taskDeleteButton"/>`  
 
                 taskContainer.innerHTML += content
                 taskContainer.dataset.index = counter
                 taskContainer.dataset.project = project
                 counter++
-                
-            });            
 
-        
-        
-    
-        
-        }
-        deleteButtonEventListener()
-        }
 
+            if (taskPriority == 1){
+              taskContainer.classList.add("taskPrioLow")
+            } else if (taskPriority == 2){
+              taskContainer.classList.add("taskPrioMedium")
+            } else if (taskPriority == 3){
+              taskContainer.classList.add("taskPrioHigh")
+            }
+        });                
+    }
+    // end recursive
+    }
         
+
 
 
         function deleteButtonEventListener (){
+
+          
+
+          
+
             const taskDeleteButton = document.querySelectorAll(".taskDeleteButton")
-        taskDeleteButton.forEach(button => {
+            
+            taskDeleteButton.forEach(button => {
             button.addEventListener("click",(button) => {
+
+          
 
                 let allTasksTemp = window.localStorage.getItem("allTasks")
                 allTasksTemp = JSON.parse(allTasksTemp)
                 let index = button.currentTarget.parentNode.getAttribute("data-index")
-                let project = localStorage.getItem("currentProject")
+                let project = button.currentTarget.parentNode.getAttribute("data-project")
                 console.log("project array " + button.currentTarget.parentNode.getAttribute("data-project"))
                 let array = allTasksTemp[project]
                 console.log("array: " + array)
@@ -112,14 +147,11 @@ export const UImethods  = (function () {
               input.focus();
             }, 500);
           }
-          
           function collapse() {
             slider.className = 'collapsed';
             input.blur();
           }
           
-
-
           const projectToggle = document.getElementById("projectToggle")
           projectToggle.addEventListener("click", ()=> {
               expand()
@@ -139,8 +171,8 @@ export const UImethods  = (function () {
             allTasksTemp[input.value] = []
             window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
             collapse();
-            ProjectMethods.renderProjects()
 
+            ProjectMethods.renderProjects()
           }
 
 
@@ -164,11 +196,12 @@ export const UImethods  = (function () {
             })
             }
               
+
           toggleTaskForm()
          
 
 
-        return {initEventlisteners, renderTasks}
+           return {initEventlisteners, renderTasks}
 
 }) ()
 
