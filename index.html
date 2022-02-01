@@ -8,9 +8,8 @@
 </head>
 <body>
     <header>
-        <h1>TODO List</h1>
-        <button id="seedData">Seed Data</button>
-        <button id="deleteAll">Delete all tasks</button>
+        <logo><img class="logo" src="./c5c96e6c479d40fa941d.svg" alt=""></logo>
+        <h2>A simple Todo-List</h2>
     </header>
     <div class="container">
         <div class="projectContainer">
@@ -18,8 +17,8 @@
            <form id='newProjectButton' onSubmit={this.onSubmit}>
             <div id='slider' class='collapsed'>
               <input type='button' id='projectToggle' value='New Project'>
-              <input type='text' id='input' tabindex='-1' placeholder='username' size=10>
-              <input type='submit' id='ok' tabindex='-1' value='ok'>
+              <input type='text' id='input' tabindex='-1' placeholder='New Project' size=10>
+              <input type='submit' id='ok' tabindex='-1' value='Add project'>
 
             </div>
           </form>
@@ -28,30 +27,41 @@
           <div class="projectWrapper" id="projectWrapper">
 
           </div>
-
-
+          <h4>Settings</h4>
+          <button id="seedData">Seed Data</button>
+        <button id="deleteAll">Delete all tasks</button>
         </div>
         <div class="taskContainerWrapper">
         
             <div id="allTaskContainer"></div>
-            <br> <br> <br>
+           
 
             <button id="createNewTask">Add Task</button>
+
             <form data-task-input id="newTaskForm">
 
                 <input class="text-input" minlength="2" maxlength="20" type="text" id="taskName" placeholder="New Task" required><br>
                 <br>
 
                 <div class="priorityContainer">
+                    
+                    <div class="prioSelectContainer">
+                        <input type="radio" checked id="lowPriority" name="priority" value="1">
+                        <label for="lowPriority">Low Priority</label>
+                        <br>
+                    </div>
 
-                    <input type="radio" checked id="lowPriority" name="priority" value="1">
-                    <label for="lowPriority">Low Priority</label>
-                    <br>
-                    <input type="radio" id="mediumPriority" name="priority" value="2">
-                    <label for="mediumPriority">Medium Priority</label>
-                    <br>
-                    <input type="radio" id="highPriority" name="priority" value="3">
-                    <label for="highPriority">High Priority</label>
+                    <div class="prioSelectContainer">
+                        <input type="radio" id="mediumPriority" name="priority" value="2">
+                        <label for="mediumPriority">Medium Priority</label>
+                        <br>
+                    </div>
+
+                    <div class="prioSelectContainer">
+                        <input type="radio" id="highPriority" name="priority" value="3">
+                        <label for="highPriority">High Priority</label>
+                        <br>
+                    </div>
                 </div>
 
                 <input id="addTask" type="submit" value="Add to List">
