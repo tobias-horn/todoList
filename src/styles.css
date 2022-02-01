@@ -1,31 +1,67 @@
-* {
+:root {
+  --main-bg-color: #d8f3dc;
+  --main-bg-color-secondary: #ffaaa6;
+  --main-accent-color: #ff8c94;
+  --main-accent-color-secondary: #52b788;
+  --main-color: #52b788;
 
+}
+
+
+* {
+box-sizing: border-box;
 }
 
 
 body {
-    background-color: #b3e1e8;
+    background-color: var(--main-bg-color);
     font-family: sans-serif;
+    margin: 0;
     
 }
 
 header {
-    height: 100px;
-    background-color: beige;
+    
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  background-color: #95d5b2;
+  margin-bottom: 40px;
+  flex-flow: column;
+  align-items: center;
+  color: white;
+
+}
+
+.logo {
+  max-width: 300px;
+  height: auto;
+
 }
 
 .container {
     display: flex;
+    gap: 40px;
+    height: auto;
+
     
 }
 .projectContainer {
-    width: 35%;
+
+    background-color: #95d5b2;
+    border-radius: 10px;
+    padding: 15px;
+
 }
 
 
 #newProjectButton {
     overflow: hidden;
-    width: 60%;
+    width: 250px;
+    background-color: #dee2e6;
+    border-radius: 10px;
+
+    
   }
   
   #slider {
@@ -40,45 +76,202 @@ header {
   
   #projectToggle {
     flex: 0 0 50%;
+    padding: 10px 8px;
+    background-color: #dee2e6;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #4d4d4d;
+
   }
   
   #input {
     flex: auto;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: none;
   }
   
   #ok {
     flex: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: none;
+    background-color: #dee2e6;
   }
 
-.projectWrapper div {
-    background-color: bisque;
+  #ok:hover {
+    background-color: #c1c4c8;
+  }
+
+.projectWrapper {
+  width: 250px;
+}
+
+.projectBox {
+    background-color: var(--main-accent-color-secondary);
     padding: 15px 20px;
     border-radius: 10px;
-    margin: 10px 0;
-    width: 50%;
+    margin: 15px 0;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #1b4332;
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 1.3em;
 
 }
 
+.projectActive {
+  border: 3px solid #1b4332;
+  padding: 12px 17px;
+}
+
 .projectDeleteButton {
-    background-color: rgb(206, 186, 161);
+    background-color: #40916c;
     border: none;
-    color: rgb(125, 125, 125);
+    color: #dad7cd;
     border-radius: 2px;
     height: 25px;
     width: 25px;
+    margin-left: 10px;
 }
 
 
 
 .projectDeleteButton:hover {
-    color: darkcyan;
+    color: #f28482;
 }
+
+.taskContainerWrapper {
+  width: 260px;
+}
+
+
+#createNewTask {
+  padding: 15px 17px;
+  margin-top: 20px;
+  margin-right: 5px;
+  background-color: #dee2e6;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #4d4d4d;
+  width: 100%;
+}
+
+#createNewTask:hover {
+  background-color: #c1c4c8;
+}
+
+
 
 #newTaskForm {
     display: none;
+    background-color: var(--main-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+
+
+}
+
+#taskName {
+  line-height: 1.3em;
+  padding: 10px 8px;
+  background-color: #d8f3dc;
+  border: none;
+  border-radius: 10px;
+}
+
+
+#addTask {
+
+  padding: 15px 17px;
+  margin-top: 20px;
+  margin-right: 5px;
+  background-color: #dee2e6;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #4d4d4d;
+
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+#addTask:hover, #addTask:focus, #addTask:active {
+  -webkit-transform: translateY(-8px);
+  transform: translateY(-8px);
+}
+
+#cancelTaskInput {
+padding: 15px 17px;
+background-color: #ff8c94;
+border: none;
+border-radius: 5px;
+font-weight: bold;
+color: #8a343a;
+
+
+
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+#cancelTaskInput:hover, #cancelTaskInput:focus, #cancelTaskInput:active {
+  -webkit-transform: translateY(-8px);
+  transform: translateY(-8px);
+}
+
+#seedData {
+  padding: 15px 17px;
+  margin-right: 5px;
+  background-color: #dee2e6;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #4d4d4d;
+}
+
+#seedData:hover {
+background-color: #d0d2d3;
+}
+
+#deleteAll {
+  padding: 15px 17px;
+  background-color: #ff8c94;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #8a343a;
+}
+
+#deleteAll:hover{
+  background-color: #e4757c;
+}
+
+.prioSelectContainer {
+  margin-bottom: 7px;
+  color: #1b4332;
+  font-weight: bold;
+
 }
 
 #lowPriority {
@@ -92,13 +285,9 @@ header {
 
 
 
-.projectActive {
-    border: 2px solid white;
-}
 
-.taskContainer {
-  margin-top: 40px;
-}
+
+
 
 .checkbox-round {
   width: 25px;
@@ -115,11 +304,24 @@ header {
 }
 
 .checkbox-round:hover {
-  background-color: gray;
+  background-color: #95d5b2;
 
 }
 
 
+
+
+.taskContainer {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #dad7cd; */
+  background-color: #b7e4c7;
+  margin-top: 20px;
+  
+
+}
 
 .taskPrioLow {
   border-left: 5px solid green;
@@ -127,22 +329,29 @@ header {
 
 .taskPrioMedium {
   border-left: 5px solid orange;
+  background-color: rgba(255, 166, 0, 0.174);
 }
 
 .taskPrioHigh {
   border-left: 5px solid red;
-}
-
-.taskContainer {
-  padding-left: 10px;
-  padding-right: 15px;
-  padding: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
+  background-color: rgba(255, 0, 0, 0.256);
 }
 
 .taskContainer p {
   margin-left: 15px;
+}
+
+.taskNameDescription {
+  margin: 25px 0;
+  padding: 20px;
+  background-color: var(--main-color);
+  border-radius: 10px;
+  font-weight: bold;
+  color: #1b4332;
+  font-size: 1.2em;
+
+}
+
+.taskContainerWrapper div:first-child {
+  margin-top: 0;
 }

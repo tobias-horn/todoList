@@ -11,8 +11,9 @@ export const UImethods  = (function () {
             e.preventDefault()
             const taskName = document.getElementById("taskName").value
             const taskPriority = document.querySelector('input[name="priority"]:checked').value
-            
-            console.log("task priority: "+ taskPriority)
+            if (taskName === ""){
+              return
+            }
 
             newTask(taskName, taskPriority)
             renderTasks(localStorage.getItem("currentProject"))
@@ -55,20 +56,33 @@ if (project == "default"){
 
   const keys = Object.keys(allTasksTemp)
   keys.forEach(key => {
-    const projectName = document.createElement("div")
-          projectName.classList.add("taskContainer")
+          const projectName = document.createElement("div")
+          projectName.classList.add("taskNameDescription")
+
+
+
+          
           if (key == "default"){
             projectName.innerHTML = "Inbox"
           } else {
           projectName.innerHTML = key
           }
           allTaskContainer.appendChild(projectName)
-    _renderTasksRecursive(key)
+          if (allTasksTemp[key].length === 0){
+
+            projectName.innerHTML = "No tasks in " + key
+          }
+          _renderTasksRecursive(key)
 
   })
 
 
   } else {
+          const projectName = document.createElement("div")
+          projectName.classList.add("taskNameDescription")
+          allTaskContainer.appendChild(projectName)
+          projectName.innerHTML = project
+
     _renderTasksRecursive(project)
   }
 

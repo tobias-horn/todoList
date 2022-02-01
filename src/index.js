@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 
-
+import Logo from './img/elephantTodoLogo.svg'
 
 TaskMethods.init()
 ProjectMethods.renderProjects()
