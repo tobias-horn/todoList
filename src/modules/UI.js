@@ -3,10 +3,9 @@ import { ProjectMethods } from "./projects.js"
 
 export const UImethods  = (function () {
     
-    function initEventlisteners (newTask) {
+    function initEventlisteners () {
 
         const addTaskButton = document.getElementById("addTask")
-
         addTaskButton.addEventListener("click", (e) => {
             e.preventDefault()
             const taskName = document.getElementById("taskName").value
@@ -14,13 +13,13 @@ export const UImethods  = (function () {
             if (taskName === ""){
               return
             }
-
-            newTask(taskName, taskPriority)
+            TaskMethods.newTask(taskName, taskPriority)
             renderTasks(localStorage.getItem("currentProject"))
             document.querySelector("[data-task-input]").reset()
 
         })
 
+        // delete all button
         const deleteAll = document.getElementById("deleteAll")
         deleteAll.addEventListener("click", ()=> {
             window.localStorage.removeItem("allTasks")
@@ -35,6 +34,7 @@ export const UImethods  = (function () {
 function renderTasks (project) {
 
   // if no tasks saved, return
+
   if (window.localStorage.getItem("allTasks") === null){
     const taskContainer = document.getElementById("allTaskContainer")
     taskContainer.innerHTML = ""
@@ -45,37 +45,32 @@ function renderTasks (project) {
 let allTasksTemp = window.localStorage.getItem("allTasks")
 allTasksTemp = JSON.parse(allTasksTemp)
 
-console.table(allTasksTemp)
-
 // clearing field
 const allTaskContainer = document.getElementById("allTaskContainer")
 allTaskContainer.innerHTML = ""
 
-
+// rendering all tasks to default project
 if (project == "default"){
 
   const keys = Object.keys(allTasksTemp)
   keys.forEach(key => {
           const projectName = document.createElement("div")
           projectName.classList.add("taskNameDescription")
-
-
-
           
           if (key == "default"){
             projectName.innerHTML = "Inbox"
           } else {
           projectName.innerHTML = key
           }
+
           allTaskContainer.appendChild(projectName)
           if (allTasksTemp[key].length === 0){
-
             projectName.innerHTML = "No tasks in " + key
           }
+
           _renderTasksRecursive(key)
 
   })
-
 
   } else {
           const projectName = document.createElement("div")
@@ -83,15 +78,15 @@ if (project == "default"){
           allTaskContainer.appendChild(projectName)
           projectName.innerHTML = project
 
-    _renderTasksRecursive(project)
+          _renderTasksRecursive(project)
   }
 
   deleteButtonEventListener()
 
       function _renderTasksRecursive(project){
         let counter = 0
-        console.log("project in _renderTasks " + project)
         allTasksTemp[project].forEach(task => {
+
           const taskContainer = document.createElement("div")
           taskContainer.classList.add("taskContainer")
           allTaskContainer.appendChild(taskContainer)
@@ -102,10 +97,10 @@ if (project == "default"){
             let content = `<p>${taskName}</p>
             <input type="checkbox" class="checkbox-round taskDeleteButton"/>`  
 
-                taskContainer.innerHTML += content
-                taskContainer.dataset.index = counter
-                taskContainer.dataset.project = project
-                counter++
+            taskContainer.innerHTML += content
+            taskContainer.dataset.index = counter
+            taskContainer.dataset.project = project
+            counter++
 
 
             if (taskPriority == 1){
@@ -123,38 +118,21 @@ if (project == "default"){
 
 
 
-        function deleteButtonEventListener (){
-
-          
-
-          
+    function deleteButtonEventListener (){
 
             const taskDeleteButton = document.querySelectorAll(".taskDeleteButton")
-            
             taskDeleteButton.forEach(button => {
             button.addEventListener("click",(button) => {
 
-          
-
-                let allTasksTemp = window.localStorage.getItem("allTasks")
-                allTasksTemp = JSON.parse(allTasksTemp)
                 let index = button.currentTarget.parentNode.getAttribute("data-index")
                 let project = button.currentTarget.parentNode.getAttribute("data-project")
-                console.log("project array " + button.currentTarget.parentNode.getAttribute("data-project"))
-                let array = allTasksTemp[project]
-                console.log("array: " + array)
-                array.splice(index, 1)
-                allTasksTemp[project] = array
-                window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
+                TaskMethods.deleteTask(index, project)
                 renderTasks(localStorage.getItem("currentProject"))
         
             })
         })
         }
-
-
-
-
+        // logic for fancy add project button
         function expand() {
             slider.className = 'expanded';
             setTimeout(function() {
@@ -178,14 +156,9 @@ if (project == "default"){
           
           newProjectButton.onsubmit = function(e) {
             e.preventDefault();
-            let allTasksTemp = window.localStorage.getItem("allTasks")
-            allTasksTemp = JSON.parse(allTasksTemp)
-            console.log("submit")
-            window.localStorage.removeItem("allTasks")
-            allTasksTemp[input.value] = []
-            window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
+            let project = input.value
+            ProjectMethods.addProject(project)
             collapse();
-
             ProjectMethods.renderProjects()
           }
 
@@ -193,13 +166,10 @@ if (project == "default"){
           function toggleTaskForm (){
 
             const newTaskForm = document.getElementById("newTaskForm")
-
               const formToggleButton = document.getElementById("createNewTask")
               formToggleButton.addEventListener("click", () =>{
                 newTaskForm.style.display = "block"
                 formToggleButton.style.display = "none"
-
-                
               })
 
               const cancelTaskButton = document.getElementById("cancelTaskInput")
@@ -211,11 +181,11 @@ if (project == "default"){
             }
               
 
-          toggleTaskForm()
+
          
 
 
-           return {initEventlisteners, renderTasks}
+           return {initEventlisteners, renderTasks, toggleTaskForm}
 
 }) ()
 

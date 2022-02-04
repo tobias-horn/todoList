@@ -9,12 +9,12 @@ import '@fortawesome/fontawesome-free/js/brands'
 
 import Logo from './img/elephantTodoLogo.svg'
 
-TaskMethods.init()
-ProjectMethods.renderProjects()
-UImethods.renderTasks(localStorage.getItem("currentProject"))
-
-
-
+localStorage.setItem("currentProject", "default")
+UImethods.initEventlisteners()
+UImethods.renderTasks("default")
+ProjectMethods.renderProjects()   
+TaskMethods.checkForLocalStorage()
+UImethods.toggleTaskForm()
 
 import './styles.css';
 

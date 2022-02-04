@@ -1,7 +1,5 @@
 import { UImethods } from "./UI"
-
-
-
+import { ProjectMethods } from "./projects"
 
 export const TaskMethods  = (function () {
     
@@ -9,29 +7,22 @@ export const TaskMethods  = (function () {
     let allTasksTemp = {
       default: [],
     }
-  
     window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
   }
 
   function checkForLocalStorage() {
 
-    let check = window.localStorage.getItem("allTasks")
-    
     if (window.localStorage.getItem("allTasks") === null) {
-    
       createAllTasks()
     }
     
     }
-    
-    checkForLocalStorage()
 
-      class Task {
-          constructor(name, priority, project, dueDate){
+    class Task {
+          constructor(name, priority, project){
               this.name = name
               this.priority = priority
               this.project = project
-              this.dueDate = dueDate
           }
       }
       
@@ -52,16 +43,15 @@ export const TaskMethods  = (function () {
         
       }
       
-      function init (){
-      localStorage.setItem("currentProject", "default")
-      UImethods.initEventlisteners(newTask)
-      UImethods.renderTasks("default")
-      
+      function deleteTask(index, project){
+        let allTasksTemp = window.localStorage.getItem("allTasks")
+        allTasksTemp = JSON.parse(allTasksTemp)
+        let array = allTasksTemp[project]
+        array.splice(index, 1)
+        allTasksTemp[project] = array
+        window.localStorage.setItem("allTasks", JSON.stringify(allTasksTemp))
       }
-
-
-
-
-return {init, createAllTasks}
+    
+return {newTask, createAllTasks, checkForLocalStorage, deleteTask}
 
 }) ()

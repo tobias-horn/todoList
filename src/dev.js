@@ -12,44 +12,44 @@ function seedData (){
                 "default": [
                   {
                     "name": "Clean Bathroom",
-                    "priority": "3",
-                    "project": "default"
-                  },
-                  {
-                    "name": "Buy new dogfood",
-                    "priority": "2",
-                    "project": "default"
-                  },
-                  {
-                    "name": "Call Uncle Joe",
                     "priority": "1",
                     "project": "default"
                   },
                   {
-                    "name": "Cash check for insurance claim",
+                    "name": "Buy new dogfood",
+                    "priority": "3",
+                    "project": "default"
+                  },
+                  {
+                    "name": "Dust the furniture",
+                    "priority": "1",
+                    "project": "default"
+                  },
+                  {
+                    "name": "Change the sheets",
                     "priority": "3",
                     "project": "default"
                   }
                 ],
                 "Holiday Preperation": [
                   {
-                    "name": "Get health insurance documents",
-                    "priority": "3",
+                    "name": "Buy christmas tree",
+                    "priority": "1",
                     "project": "Holiday Preperation"
                   },
                   {
-                    "name": "Order Turkey",
+                    "name": "Order food",
                     "priority": "3",
                     "project": "Holiday Preperation"
                   },
                   {
                     "name": "Put up christmas lights",
-                    "priority": "3",
+                    "priority": "2",
                     "project": "Holiday Preperation"
                   },
                   {
                     "name": "Order gifts",
-                    "priority": "3",
+                    "priority": "1",
                     "project": "Holiday Preperation"
                   }
                 ],
