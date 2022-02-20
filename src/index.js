@@ -10,6 +10,7 @@ import '@fortawesome/fontawesome-free/js/brands'
 import Logo from './img/elephantTodoLogo.svg'
 
 localStorage.setItem("currentProject", "default")
+TaskMethods.createAllTasks()
 UImethods.initEventlisteners()
 UImethods.renderTasks("default")
 ProjectMethods.renderProjects()   
